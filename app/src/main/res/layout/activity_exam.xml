@@ -2,19 +2,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:background="@mipmap/main">
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@mipmap/exam_title"
+        tools:background="@mipmap/exam_title"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
         />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/exam_title"
+        tools:text="@string/exam_title"
         android:textColor="#000"
         android:textSize="22dp"
         android:layout_marginLeft="10dp"
@@ -39,7 +40,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="这个标志有何意义"
+            tools:text="这个标志有何意义"
             android:textColor="#000"
             android:textSize="18dp"/>
 
@@ -67,7 +68,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="距有人看守铁路道口50米"
+            tools:text="距有人看守铁路道口50米"
             android:textColor="#000"
             android:textSize="18dp" />
 
@@ -87,7 +88,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="距无人看守铁路道口100米"
+            tools:text="距无人看守铁路道口100米"
             android:textColor="#000"
             android:textSize="18dp"/>
 
@@ -107,7 +108,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="距有人看守铁路道口100米"
+            tools:text="距有人看守铁路道口100米"
             android:textColor="#000"
             android:textSize="18dp"/>
 
@@ -127,7 +128,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="距无人看守铁路道口50米"
+            tools:text="距无人看守铁路道口50米"
             android:textColor="#000"
             android:textSize="18dp"/>
 
