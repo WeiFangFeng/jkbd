@@ -20,7 +20,7 @@
         android:textSize="22dp"
         android:layout_marginLeft="10dp"
         />
-    <view
+    <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#990000"
@@ -68,7 +68,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="距有人看守铁路道口50米"
+            tools:text="不准小型车通行"
             android:textColor="#000"
             android:textSize="18dp" />
 
@@ -88,7 +88,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="距无人看守铁路道口100米"
+            tools:text="只准小型车行驶"
             android:textColor="#000"
             android:textSize="18dp"/>
 
@@ -108,7 +108,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="距有人看守铁路道口100米"
+            tools:text="机动车行驶"
             android:textColor="#000"
             android:textSize="18dp"/>
 
@@ -128,7 +128,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="距无人看守铁路道口50米"
+            tools:text="禁止小型车行驶"
             android:textColor="#000"
             android:textSize="18dp"/>
 

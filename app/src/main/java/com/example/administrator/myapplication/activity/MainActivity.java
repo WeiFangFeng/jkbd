@@ -16,9 +16,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.layout_main);
     }
 
-    public void test(View view) {
 
-startActivity(new Intent(MainActivity.this,ExamActivity.class));
+
+
+    public void test(View view) {
+      startActivity(new Intent(MainActivity.this,ExamActivity.class));
+
     }
 
     public void exit(View view) {
