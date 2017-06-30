@@ -8,14 +8,14 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:background="@mipmap/exam_title"
+        android:background="@mipmap/exam_title"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
         />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:text="@string/exam_title"
+        android:text="@string/exam_title"
         android:textColor="#000"
         android:textSize="22dp"
         android:layout_marginLeft="10dp"
