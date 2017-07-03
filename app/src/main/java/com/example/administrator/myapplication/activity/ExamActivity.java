@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 
 import com.example.administrator.myapplication.ExamApplication;
 import com.example.administrator.myapplication.R;
+import com.example.administrator.myapplication.bean.Exam;
 import com.example.administrator.myapplication.bean.Exam;
 import com.example.administrator.myapplication.bean.ExamInfo;
 import com.example.administrator.myapplication.biz.ExamBiz;
@@ -35,6 +37,7 @@ import java.util.Properties;
 public class ExamActivity extends AppCompatActivity {
     TextView tvExamInfo,tv_ExamTitle,tv0p1,tv0p2,tv0p3,tv0p4,tv_load,tv_NO;
      CheckBox cb01,cb02,cb03,cb04;
+    CheckBox[] cbs=new  CheckBox[4];
     LinearLayout layoutLoading,layout03,layout04;
     ProgressBar dialog;
     ImageView mImageView;
@@ -98,15 +101,55 @@ public class ExamActivity extends AppCompatActivity {
           cb02=(CheckBox)findViewById( R.id.cb_02);
           cb03=(CheckBox)findViewById( R.id.cb_03);
           cb04=(CheckBox)findViewById( R.id.cb_04);
+         cbs[0]=cb01;
+        cbs[1]=cb02;
+        cbs[2]=cb03;
+        cbs[3]=cb04;
           mImageView=(ImageView)findViewById(R.id.im_exam);
           layoutLoading.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 loadData();
             }
-        });
+              /*cb01.setOnCheckedChangeListener(listener);
+              cb02.setOnCheckedChangeListener(listener);
+              cb03.setOnCheckedChangeListener(listener);
+              cb04.setOnCheckedChangeListener(listener);
 
-    };
+*/
+          });
+        CompoundButton.OnCheckedChangeListener listener = new CompoundButton.OnCheckedChangeListener(){
+
+            @Override
+
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    int userAnswer = 0;
+                    switch (buttonView.getId()) {
+                        case R.id.cb_01:
+                            break;
+                        case R.id.cb_02:
+                            break;
+                        case R.id.cb_03:
+                            break;
+                        case R.id.cb_04:
+                            break;
+                    }
+
+                    Log.e("checkChanged", "userAnswer=" + userAnswer + "isCheck=" + isChecked);
+                    if (userAnswer > 0) {
+                        for (CheckBox cb : cbs) {
+                            cb.setChecked(false);
+                        }
+                        cbs[userAnswer - 1].setChecked(true);
+
+                    }
+                }
+            }
+        };
+
+
+    }
     private void initData() {
         if(isLoadExamInfoReceiver && isLoadQuestionReceiver){
             if (isExamInfo && isQuestion){
@@ -143,7 +186,6 @@ public class ExamActivity extends AppCompatActivity {
             cb03.setVisibility(exam.getItem4().equals("")?View.GONE:View.VISIBLE);
             layout04.setVisibility(exam.getItem4().equals("")?View.GONE:View.VISIBLE);
             cb04.setVisibility(exam.getItem4().equals("")?View.GONE:View.VISIBLE);
-
             if(exam.getUrl()!=null) {
                 Picasso.with(ExamActivity.this)
                         .load(exam.getUrl())
