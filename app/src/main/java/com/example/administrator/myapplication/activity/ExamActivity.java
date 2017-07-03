@@ -18,6 +18,7 @@ import com.example.administrator.myapplication.ExamApplication;
 import com.example.administrator.myapplication.R;
 import com.example.administrator.myapplication.bean.Exam;
 import com.example.administrator.myapplication.bean.ExamInfo;
+import com.example.administrator.myapplication.biz.ExamBiz;
 import com.example.administrator.myapplication.biz.IExamBiz;
 import com.example.administrator.myapplication.utils.OkHttpUtils;
 import com.squareup.picasso.Picasso;
@@ -31,17 +32,15 @@ import java.util.Properties;
  */
 
 public class ExamActivity extends AppCompatActivity {
-    TextView tvExamInfo,tv_ExamTitle,tv0p1,tv0p2,tv0p3,tv0p4,tv_load;
+    TextView tvExamInfo,tv_ExamTitle,tv0p1,tv0p2,tv0p3,tv0p4,tv_load,tv_NO;
      LinearLayout layoutLoading;
     ProgressBar dialog;
     ImageView mImageView;
     IExamBiz biz;
     boolean isLoadExamInfoReceiver=false;
     boolean  isLoadQuestionReceiver=false;
-
      boolean isExamInfo=false;
     boolean  isQuestion=false;
-
     LoadExamBroadcast mLoadExamBroadcast;
     LoadQuestionBroadcast mLoadQuestionBroadcast;
 
@@ -55,6 +54,7 @@ public class ExamActivity extends AppCompatActivity {
        setListener();
         intView();
         loadData();
+        biz=new ExamBiz();
         
     }
 
@@ -79,6 +79,7 @@ public class ExamActivity extends AppCompatActivity {
     }
 
     private void intView() {
+        tv_NO=(TextView) findViewById(R.id.tv_exam_no);
         layoutLoading=(LinearLayout)findViewById(R.id.layout_loading);
           dialog=(ProgressBar)findViewById(R.id.load_dialog);
         tvExamInfo=(TextView) findViewById(R.id.tv_examinfo);
@@ -106,15 +107,11 @@ public class ExamActivity extends AppCompatActivity {
                 ExamInfo examInfo=ExamApplication.getInstance().getMExamInfo();
                 if(examInfo!=null) {
                     showData(examInfo);
-                }
-                List<Exam>examList= ExamApplication.getInstance().getMExamList();
-                if(examList!=null){
-                    showExam(examList);
-
+                    showExam(biz.getInExam());
                 }
 
             }else{
-
+                layoutLoading.setEnabled(true);
                 tv_load.setText("下载失败,点击重新下载");
                 dialog.setVisibility(View.GONE);
 
@@ -125,18 +122,24 @@ public class ExamActivity extends AppCompatActivity {
 
         }
 
-    private void showExam(List<Exam> examList) {
-       Exam exam=examList.get(0);
+    private void showExam(Exam exam) {
+         Log.e("showExam","showExam,exam="+exam);
         if (exam != null) {
-
+            tv_NO.setText(biz.getExamIndex());
             tv_ExamTitle.setText(exam.getQuestion());
             tv0p1.setText(exam.getItem1());
             tv0p2.setText(exam.getItem2());
             tv0p3.setText(exam.getItem3());
             tv0p4.setText(exam.getItem4());
-            Picasso.with(ExamActivity.this)
-                    .load(exam.getUrl())
-                    .into(mImageView);
+            if(exam.getUrl()!=null) {
+                Picasso.with(ExamActivity.this)
+                        .load(exam.getUrl())
+                        .into(mImageView);
+            }
+            else{
+                mImageView.setVisibility(View.GONE);
+
+            }
 
         }
     }
@@ -158,6 +161,14 @@ public class ExamActivity extends AppCompatActivity {
         if(mLoadQuestionBroadcast!=null){
             unregisterReceiver(mLoadQuestionBroadcast);
         }
+    }
+
+    public void preExam(View view) {
+        showExam(biz.preQuestion());
+    }
+
+    public void nextExam(View view) {
+        showExam(biz.nextQuestion());
     }
 
     class LoadExamBroadcast extends BroadcastReceiver {
