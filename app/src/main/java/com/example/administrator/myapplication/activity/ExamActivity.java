@@ -1,5 +1,9 @@
 package com.example.administrator.myapplication.activity;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +16,7 @@ import com.example.administrator.myapplication.ExamApplication;
 import com.example.administrator.myapplication.R;
 import com.example.administrator.myapplication.bean.Exam;
 import com.example.administrator.myapplication.bean.ExamInfo;
+import com.example.administrator.myapplication.biz.IExamBiz;
 import com.example.administrator.myapplication.utils.OkHttpUtils;
 import com.squareup.picasso.Picasso;
 
@@ -23,38 +28,69 @@ import java.util.List;
  */
 
 public class ExamActivity extends AppCompatActivity {
-    TextView tvExamInfo,tv_ExamTitle,tvop1,tvop2,tvop3,tvop4;
-   ImageView mImageView;
+    TextView tvExamInfo,tv_ExamTitle,tv0p1,tv0p2,tv0p3,tv0p4;
+    ImageView mImageView;
+    IExamBiz biz;
+    boolean isExamInfo=false;
+    boolean  isQuestion=false;
+    LoadExamBroadcast mLoadExamBroadcast;
+    LoadQuestionBroadcast mLoadQuestionBroadcast;
+
     @Override
     protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exam);
+        mLoadExamBroadcast =new LoadExamBroadcast();
+        mLoadQuestionBroadcast=new LoadQuestionBroadcast();
+       setListener();
+
         intView();
-        intData();
+        loadData();
         
+    }
+
+    private void setListener() {
+        registerReceiver(mLoadExamBroadcast,new IntentFilter(ExamApplication.LOAD_EXAM_INFO));
+        registerReceiver(mLoadQuestionBroadcast,new IntentFilter(ExamApplication.LOAD_EXAM_QUESTION));
+
+
+    }
+
+    private void loadData() {
+        new Thread(new Runnable(){
+            @Override
+            public void run() {
+
+                biz.beginExam();
+            }
+        } ).start();
     }
 
     private void intView() {
           tvExamInfo=(TextView) findViewById(R.id.tv_examinfo);
           tv_ExamTitle=(TextView) findViewById(R.id.tv_exam_title);
           tv_ExamTitle =(TextView)findViewById(R.id.tv_exam_title);
-          tvop1=(TextView) findViewById(R.id.tv_op1);
-        tvop2=(TextView)findViewById(R.id.tv_op2);
-        tvop3=(TextView)findViewById(R.id.tv_op3);
-        tvop4=(TextView)findViewById(R.id.tv_op4);
+          tv0p1=(TextView) findViewById(R.id.tv_op1);
+        tv0p2=(TextView)findViewById(R.id.tv_op2);
+        tv0p3=(TextView)findViewById(R.id.tv_op3);
+        tv0p4=(TextView)findViewById(R.id.tv_op4);
         mImageView=(ImageView)findViewById(R.id.im_exam);
 
     };
-    private void intData() {
-        ExamInfo examInfo=ExamApplication.getInstance().getMExamInfo();
-        if(examInfo!=null) {
-            showData(examInfo);
-        }
-       List<Exam>examList= ExamApplication.getInstance().getMExamList();
-       if(examList!=null){
-           showExam(examList);
+    private void initData() {
+        if (isExamInfo && isQuestion){
+            ExamInfo examInfo=ExamApplication.getInstance().getMExamInfo();
+            if(examInfo!=null) {
+                showData(examInfo);
+            }
+            List<Exam>examList= ExamApplication.getInstance().getMExamList();
+            if(examList!=null){
+                showExam(examList);
 
-       }
+            }
+
+        }
+
         }
 
     private void showExam(List<Exam> examList) {
@@ -62,19 +98,58 @@ public class ExamActivity extends AppCompatActivity {
         if (exam != null) {
 
             tv_ExamTitle.setText(exam.getQuestion());
-            tvop1.setText(exam.getItem1());
-            tvop2.setText(exam.getItem2());
-            tvop3.setText(exam.getItem3());
-            tvop4.setText(exam.getItem4());
-            Picasso.with(ExamActivity.this).load(exam.getUrl()).into(mImageView);
+            tv0p1.setText(exam.getItem1());
+            tv0p2.setText(exam.getItem2());
+            tv0p3.setText(exam.getItem3());
+            tv0p4.setText(exam.getItem4());
+            Picasso.with(ExamActivity.this)
+                    .load(exam.getUrl())
+                    .into(mImageView);
 
         }
     }
 
 
     private void showData(ExamInfo examInfo) {
+
         tvExamInfo.setText(examInfo.toString());
+
          }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(mLoadExamBroadcast!=null){
+            unregisterReceiver(mLoadExamBroadcast);
 
+        }
+        if(mLoadQuestionBroadcast!=null){
+            unregisterReceiver(mLoadQuestionBroadcast);
+        }
+    }
+
+    class LoadExamBroadcast extends BroadcastReceiver {
+             @Override
+             public void onReceive(Context context, Intent intent) {
+                 boolean isSuccess=intent.getBooleanExtra(ExamApplication.LOAD_EXAM_SUCCESS,false);
+                 Log.e("LoadExamBroadcast","LoadExamBroadcast,isSuccess="+isSuccess);
+                 if(isSuccess){
+                     isExamInfo=true;
+                 }
+                 initData();
+             }
+         }
+
+    class LoadQuestionBroadcast extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            boolean isSuccess=intent.getBooleanExtra(ExamApplication.LOAD_EXAM_SUCCESS,false);
+            Log.e("LoadQuestionBroadcast","LoadQuestionBroadcast,isSuccess="+isSuccess);
+
+            if(isSuccess){
+                isQuestion=true;
+            }
+            initData();
+        }
+    }
 }
