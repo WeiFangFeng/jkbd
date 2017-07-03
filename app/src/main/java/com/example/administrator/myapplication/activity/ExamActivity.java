@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.administrator.myapplication.ExamApplication;
@@ -22,6 +23,7 @@ import com.example.administrator.myapplication.utils.OkHttpUtils;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import java.util.Properties;
 
 
 /**
@@ -31,7 +33,7 @@ import java.util.List;
 public class ExamActivity extends AppCompatActivity {
     TextView tvExamInfo,tv_ExamTitle,tv0p1,tv0p2,tv0p3,tv0p4,tv_load;
      LinearLayout layoutLoading;
-
+    ProgressBar dialog;
     ImageView mImageView;
     IExamBiz biz;
     boolean isLoadExamInfoReceiver=false;
@@ -43,6 +45,7 @@ public class ExamActivity extends AppCompatActivity {
     LoadExamBroadcast mLoadExamBroadcast;
     LoadQuestionBroadcast mLoadQuestionBroadcast;
 
+
     @Override
     protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +53,6 @@ public class ExamActivity extends AppCompatActivity {
         mLoadExamBroadcast =new LoadExamBroadcast();
         mLoadQuestionBroadcast=new LoadQuestionBroadcast();
        setListener();
-
         intView();
         loadData();
         
@@ -64,6 +66,9 @@ public class ExamActivity extends AppCompatActivity {
     }
 
     private void loadData() {
+        layoutLoading.setEnabled(false);
+        dialog.setVisibility(View.VISIBLE);
+        tv_load.setText("下载数据");
         new Thread(new Runnable(){
             @Override
             public void run() {
@@ -75,7 +80,8 @@ public class ExamActivity extends AppCompatActivity {
 
     private void intView() {
         layoutLoading=(LinearLayout)findViewById(R.id.layout_loading);
-          tvExamInfo=(TextView) findViewById(R.id.tv_examinfo);
+          dialog=(ProgressBar)findViewById(R.id.load_dialog);
+        tvExamInfo=(TextView) findViewById(R.id.tv_examinfo);
           tv_ExamTitle=(TextView) findViewById(R.id.tv_exam_title);
           tv_ExamTitle =(TextView)findViewById(R.id.tv_exam_title);
           tv0p1=(TextView) findViewById(R.id.tv_op1);
@@ -84,6 +90,12 @@ public class ExamActivity extends AppCompatActivity {
         tv0p4=(TextView)findViewById(R.id.tv_op4);
         tv_load=(TextView)findViewById(R.id.tv_load);
         mImageView=(ImageView)findViewById(R.id.im_exam);
+        layoutLoading.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadData();
+            }
+        });
 
     };
     private void initData() {
@@ -102,7 +114,9 @@ public class ExamActivity extends AppCompatActivity {
                 }
 
             }else{
+
                 tv_load.setText("下载失败,点击重新下载");
+                dialog.setVisibility(View.GONE);
 
 
             }
