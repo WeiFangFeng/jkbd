@@ -11,9 +11,11 @@ import android.preference.DialogPreference;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.Gallery;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -21,6 +23,7 @@ import android.widget.TextView;
 
 import com.example.administrator.myapplication.ExamApplication;
 import com.example.administrator.myapplication.R;
+import com.example.administrator.myapplication.activity.view.QuestionAdapter;
 import com.example.administrator.myapplication.bean.Exam;
 import com.example.administrator.myapplication.bean.Exam;
 import com.example.administrator.myapplication.bean.ExamInfo;
@@ -45,9 +48,11 @@ public class ExamActivity extends AppCompatActivity {
      CheckBox cb01,cb02,cb03,cb04;
     CheckBox[] cbs=new  CheckBox[4];
     LinearLayout layoutLoading,layout03,layout04;
-    ProgressBar dialog;
     ImageView mImageView;
+    ProgressBar dialog;
+    Gallery mGallery;
     IExamBiz biz;
+    QuestionAdapter mAdapter;
     boolean isLoadExamInfoReceiver=false;
     boolean  isLoadQuestionReceiver=false;
      boolean isExamInfo=false;
@@ -98,6 +103,7 @@ public class ExamActivity extends AppCompatActivity {
         tvExamInfo = (TextView) findViewById(R.id.tv_examinfo);
         tv_ExamTitle = (TextView) findViewById(R.id.tv_exam_title);
         tv_ExamTitle = (TextView) findViewById(R.id.tv_exam_title);
+        mGallery=(Gallery) findViewById(R.id.galley);
         tv0p1 = (TextView) findViewById(R.id.tv_op1);
         tv0p2 = (TextView) findViewById(R.id.tv_op2);
         tv0p3 = (TextView) findViewById(R.id.tv_op3);
@@ -171,6 +177,7 @@ public class ExamActivity extends AppCompatActivity {
                     showData(examInfo);
                     initTime(examInfo);
                 }
+                initGallery();
                 showExam(biz.getInExam());
 
 
@@ -185,6 +192,13 @@ public class ExamActivity extends AppCompatActivity {
         }
 
         }
+
+    private void initGallery() {
+        mAdapter=new QuestionAdapter((this));
+        mGallery.setAdapter(mAdapter);
+
+
+    }
 
     private void initTime(ExamInfo examInfo) {
     //int sumTime =examInfo.getLimitTime()*60*1000;
