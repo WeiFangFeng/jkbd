@@ -86,8 +86,8 @@ public class ExamActivity extends AppCompatActivity {
     private void intView() {
         tv_NO = (TextView) findViewById(R.id.tv_exam_no);
         layoutLoading = (LinearLayout) findViewById(R.id.layout_loading);
-      //  layout03 = (LinearLayout) findViewById(R.id.layout_03);
-       // layout04 = (LinearLayout) findViewById(R.id.layout_04);
+        layout03=(LinearLayout)findViewById(R.id.layout_03);
+        layout04=(LinearLayout)findViewById(R.id.layout_04);
         dialog = (ProgressBar) findViewById(R.id.load_dialog);
         tvExamInfo = (TextView) findViewById(R.id.tv_examinfo);
         tv_ExamTitle = (TextView) findViewById(R.id.tv_exam_title);
@@ -101,8 +101,6 @@ public class ExamActivity extends AppCompatActivity {
         cb02 = (CheckBox) findViewById(R.id.cb_02);
         cb03 = (CheckBox) findViewById(R.id.cb_03);
         cb04 = (CheckBox) findViewById(R.id.cb_04);
-        layout03=(LinearLayout)findViewById(R.id.layout_03);
-        layout04=(LinearLayout)findViewById(R.id.layout_04);
         cbs[0] = cb01;
         cbs[1] = cb02;
         cbs[2] = cb03;
@@ -134,15 +132,18 @@ public class ExamActivity extends AppCompatActivity {
                     int userAnswer = 0;
                     switch (buttonView.getId()) {
                         case R.id.cb_01:
+                            userAnswer=1;
                             break;
                         case R.id.cb_02:
+                            userAnswer=2;
                             break;
                         case R.id.cb_03:
+                            userAnswer=3;
                             break;
                         case R.id.cb_04:
+                            userAnswer=4;
                             break;
                     }
-
                     Log.e("checkChanged", "userAnswer=" + userAnswer + "isCheck=" + isChecked);
                     if (userAnswer > 0) {
                         for (CheckBox cb : cbs) {
@@ -185,8 +186,8 @@ public class ExamActivity extends AppCompatActivity {
             tv_ExamTitle.setText(exam.getQuestion());
             tv0p1.setText(exam.getItem1());
             tv0p2.setText(exam.getItem2());
-            Log.e("123","tv0p3="+tv0p3);
-            Log.e("123","exam.getItem3()="+exam.getItem3());
+           // Log.e("123","tv0p3="+tv0p3);
+           // Log.e("123","exam.getItem3()="+exam.getItem3());
             tv0p3.setText(exam.getItem3());
             tv0p4.setText(exam.getItem4());
             layout03.setVisibility(exam.getItem3().equals("")?View.GONE:View.VISIBLE);
@@ -214,7 +215,15 @@ public class ExamActivity extends AppCompatActivity {
         }
     }
 
+  private void saveUserAnswer(){
 
+      for (int i=0;i<cbs.length;i++){
+        if(cbs[i].isChecked()){
+            biz.getInExam().setAnswer(String.valueOf(i+1));
+            return;
+        }
+      }
+  }
     private void showData(ExamInfo examInfo) {
 
         tvExamInfo.setText(examInfo.toString());
@@ -234,10 +243,12 @@ public class ExamActivity extends AppCompatActivity {
     }
 
     public void preExam(View view) {
+        saveUserAnswer();
         showExam(biz.preQuestion());
     }
 
     public void nextExam(View view) {
+        saveUserAnswer();
         showExam(biz.nextQuestion());
     }
 
