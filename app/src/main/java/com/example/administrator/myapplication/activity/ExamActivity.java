@@ -203,7 +203,14 @@ public class ExamActivity extends AppCompatActivity {
 
             }
 
+          resetOptions();
+        }
+    }
 
+    private void resetOptions() {
+        for (CheckBox cb: cbs) {
+            cb.setChecked(false);
+            
         }
     }
 
