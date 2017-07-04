@@ -1,5 +1,7 @@
 package com.example.administrator.myapplication.biz;
 
+import android.util.Log;
+
 import com.example.administrator.myapplication.ExamApplication;
 import com.example.administrator.myapplication.bean.Exam;
 import com.example.administrator.myapplication.dao.ExamDao;
@@ -22,6 +24,7 @@ public class ExamBiz  implements IExamBiz {
 
     @Override
     public void beginExam() {
+        Log.e("examIndex","examIndex="+dao);
         examIndex = 0;
         dao.loadExamInfo();
         dao.loadQusetionLists();

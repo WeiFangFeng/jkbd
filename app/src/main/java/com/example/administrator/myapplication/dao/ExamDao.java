@@ -20,7 +20,10 @@ import java.util.List;
 public class ExamDao implements IExamDao {
     @Override
     public void loadExamInfo() {
+        Log.e("aa","ww");
+        Log.e("aa","ww00000555555555555"+ExamApplication.getInstance());
         OkHttpUtils<ExamInfo> utils= new OkHttpUtils<>(ExamApplication.getInstance());
+        Log.e("aa","ww00000"+utils);
         String uri="http://101.251.196.90:8080/JztkServer/examInfo";
 
         utils.url(uri).targetClass(ExamInfo.class)

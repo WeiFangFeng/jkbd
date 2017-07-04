@@ -58,8 +58,8 @@ public class ExamActivity extends AppCompatActivity {
         mLoadQuestionBroadcast=new LoadQuestionBroadcast();
        setListener();
         intView();
-        loadData();
         biz=new ExamBiz();
+        loadData();
         
     }
 
@@ -77,36 +77,38 @@ public class ExamActivity extends AppCompatActivity {
         new Thread(new Runnable(){
             @Override
             public void run() {
-
+                Log.e("123","biz="+biz);
                 biz.beginExam();
             }
         } ).start();
     }
 
     private void intView() {
-          tv_NO=(TextView) findViewById(R.id.tv_exam_no);
-          layoutLoading=(LinearLayout)findViewById(R.id.layout_loading);
-        layoutLoading=(LinearLayout)findViewById(R.id.layout_03);
-        layoutLoading=(LinearLayout)findViewById(R.id.layout_04);
-        dialog=(ProgressBar)findViewById(R.id.load_dialog);
-          tvExamInfo=(TextView) findViewById(R.id.tv_examinfo);
-          tv_ExamTitle=(TextView) findViewById(R.id.tv_exam_title);
-          tv_ExamTitle =(TextView)findViewById(R.id.tv_exam_title);
-          tv0p1=(TextView) findViewById(R.id.tv_op1);
-          tv0p2=(TextView)findViewById(R.id.tv_op2);
-          tv0p3=(TextView)findViewById(R.id.tv_op3);
-          tv0p4=(TextView)findViewById(R.id.tv_op4);
-          tv_load=(TextView)findViewById(R.id.tv_load);
-          cb01=(CheckBox)findViewById( R.id.cb_01);
-          cb02=(CheckBox)findViewById( R.id.cb_02);
-          cb03=(CheckBox)findViewById( R.id.cb_03);
-          cb04=(CheckBox)findViewById( R.id.cb_04);
-         cbs[0]=cb01;
-        cbs[1]=cb02;
-        cbs[2]=cb03;
-        cbs[3]=cb04;
-          mImageView=(ImageView)findViewById(R.id.im_exam);
-          layoutLoading.setOnClickListener(new View.OnClickListener() {
+        tv_NO = (TextView) findViewById(R.id.tv_exam_no);
+        layoutLoading = (LinearLayout) findViewById(R.id.layout_loading);
+      //  layout03 = (LinearLayout) findViewById(R.id.layout_03);
+       // layout04 = (LinearLayout) findViewById(R.id.layout_04);
+        dialog = (ProgressBar) findViewById(R.id.load_dialog);
+        tvExamInfo = (TextView) findViewById(R.id.tv_examinfo);
+        tv_ExamTitle = (TextView) findViewById(R.id.tv_exam_title);
+        tv_ExamTitle = (TextView) findViewById(R.id.tv_exam_title);
+        tv0p1 = (TextView) findViewById(R.id.tv_op1);
+        tv0p2 = (TextView) findViewById(R.id.tv_op2);
+        tv0p3 = (TextView) findViewById(R.id.tv_op3);
+        tv0p4 = (TextView) findViewById(R.id.tv_op4);
+        tv_load = (TextView) findViewById(R.id.tv_load);
+        cb01 = (CheckBox) findViewById(R.id.cb_01);
+        cb02 = (CheckBox) findViewById(R.id.cb_02);
+        cb03 = (CheckBox) findViewById(R.id.cb_03);
+        cb04 = (CheckBox) findViewById(R.id.cb_04);
+        layout03=(LinearLayout)findViewById(R.id.layout_03);
+        layout04=(LinearLayout)findViewById(R.id.layout_04);
+        cbs[0] = cb01;
+        cbs[1] = cb02;
+        cbs[2] = cb03;
+        cbs[3] = cb04;
+        mImageView = (ImageView) findViewById(R.id.im_exam);
+        layoutLoading.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 loadData();
@@ -117,7 +119,12 @@ public class ExamActivity extends AppCompatActivity {
               cb04.setOnCheckedChangeListener(listener);
 
 */
-          });
+        });
+        cb01.setOnCheckedChangeListener(listener);
+        cb02.setOnCheckedChangeListener(listener);
+        cb03.setOnCheckedChangeListener(listener);
+        cb04.setOnCheckedChangeListener(listener);
+    }
         CompoundButton.OnCheckedChangeListener listener = new CompoundButton.OnCheckedChangeListener(){
 
             @Override
@@ -146,10 +153,8 @@ public class ExamActivity extends AppCompatActivity {
                     }
                 }
             }
+
         };
-
-
-    }
     private void initData() {
         if(isLoadExamInfoReceiver && isLoadQuestionReceiver){
             if (isExamInfo && isQuestion){
@@ -180,10 +185,12 @@ public class ExamActivity extends AppCompatActivity {
             tv_ExamTitle.setText(exam.getQuestion());
             tv0p1.setText(exam.getItem1());
             tv0p2.setText(exam.getItem2());
+            Log.e("123","tv0p3="+tv0p3);
+            Log.e("123","exam.getItem3()="+exam.getItem3());
             tv0p3.setText(exam.getItem3());
             tv0p4.setText(exam.getItem4());
-            layout03.setVisibility(exam.getItem4().equals("")?View.GONE:View.VISIBLE);
-            cb03.setVisibility(exam.getItem4().equals("")?View.GONE:View.VISIBLE);
+            layout03.setVisibility(exam.getItem3().equals("")?View.GONE:View.VISIBLE);
+            cb03.setVisibility(exam.getItem3().equals("")?View.GONE:View.VISIBLE);
             layout04.setVisibility(exam.getItem4().equals("")?View.GONE:View.VISIBLE);
             cb04.setVisibility(exam.getItem4().equals("")?View.GONE:View.VISIBLE);
             if(exam.getUrl()!=null) {
