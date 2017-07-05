@@ -55,193 +55,204 @@
     android:layout_height="wrap_content"
     android:text="剩余时间：9分53秒"
      android:layout_gravity="center_horizontal"
+    android:gravity="center_horizontal"
     android:textColor="#000"
     />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="5dp">
-        <TextView
-            android:id="@+id/tv_exam_no"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="1."
-            android:textColor="#000"
-            android:textSize="18dp"/>
-        <TextView
-            android:id="@+id/tv_exam_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="这个标志有何意义"
-            android:textColor="#000"
-            android:textSize="18dp"/>
-
-    </LinearLayout>
-    <ImageView
-        android:id="@+id/im_exam"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@mipmap/picture"
-        android:layout_gravity="center_horizontal"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:orientation="horizontal">
-
-        <TextView
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="A "
-            android:textColor="#000"
-            android:textSize="18dp" />
-
-        <TextView
-            android:id="@+id/tv_op1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="不准小型车通行"
-            android:textColor="#000"
-            android:textSize="18dp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="5dp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="B "
-            android:textColor="#000"
-            android:textSize="18dp"/>
-        <TextView
-            android:id="@+id/tv_op2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="只准小型车行驶"
-            android:textColor="#000"
-            android:textSize="18dp"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/layout_03"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="5dp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="C "
-            android:textColor="#000"
-            android:textSize="18dp"/>
-        <TextView
-            android:id="@+id/tv_op3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="机动车行驶"
-            android:textColor="#000"
-            android:textSize="18dp"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/layout_04"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="5dp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="D "
-            android:textColor="#000"
-            android:textSize="18dp"/>
-        <TextView
-            android:id="@+id/tv_op4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="禁止小型车行驶"
-            android:textColor="#000"
-            android:textSize="18dp"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginLeft="100dp"
-        >
-        <CheckBox
-            android:id="@+id/cb_01"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="A"/>
-        <CheckBox
-            android:id="@+id/cb_02"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="B"/>
-        <CheckBox
-            android:id="@+id/cb_03"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="C"/>
-        <CheckBox
-            android:id="@+id/cb_04"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="D"/>
-
-    </LinearLayout>
-    <Gallery
-        android:id="@+id/galley"
-        android:spacing="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#999999">
-
-    </Gallery>
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@mipmap/exam_pre32x32"
-            android:background="@null"
-            android:text="上一题"
-            android:onClick="preExam"
-            android:layout_alignParentLeft="true"
-            />
-        <Button
-            android:id="@+id/btn_next"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableRight="@mipmap/exam_next32x32"
-            android:background="@null"
-            android:text="下一题"
-            android:onClick="nextExam"
-            android:layout_alignParentRight="true"
-            />
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-           android:layout_below="@id/btn_next"
-            android:drawableRight="@mipmap/exam_commit32x32"
-            android:background="@null"
-            android:text="交卷"
-            android:onClick="commit"
-            android:gravity="center"/>
-        
-    </RelativeLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_margin="5dp">
+                <TextView
+                    android:id="@+id/tv_exam_no"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1."
+                    android:textColor="#000"
+                    android:textSize="18dp"/>
+                <TextView
+                    android:id="@+id/tv_exam_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="这个标志有何意义"
+                    android:textColor="#000"
+                    android:textSize="18dp"/>
+
+            </LinearLayout>
+            <ImageView
+                android:id="@+id/im_exam"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/picture"
+                android:layout_gravity="center_horizontal"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="A "
+                    android:textColor="#000"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:id="@+id/tv_op1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="不准小型车通行"
+                    android:textColor="#000"
+                    android:textSize="18dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_margin="5dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="B "
+                    android:textColor="#000"
+                    android:textSize="18dp"/>
+                <TextView
+                    android:id="@+id/tv_op2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="只准小型车行驶"
+                    android:textColor="#000"
+                    android:textSize="18dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_03"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_margin="5dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="C "
+                    android:textColor="#000"
+                    android:textSize="18dp"/>
+                <TextView
+                    android:id="@+id/tv_op3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="机动车行驶"
+                    android:textColor="#000"
+                    android:textSize="18dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_04"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_margin="5dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="D "
+                    android:textColor="#000"
+                    android:textSize="18dp"/>
+                <TextView
+                    android:id="@+id/tv_op4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="禁止小型车行驶"
+                    android:textColor="#000"
+                    android:textSize="18dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="100dp"
+                >
+                <CheckBox
+                    android:id="@+id/cb_01"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="A"/>
+                <CheckBox
+                    android:id="@+id/cb_02"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="B"/>
+                <CheckBox
+                    android:id="@+id/cb_03"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="C"/>
+                <CheckBox
+                    android:id="@+id/cb_04"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="D"/>
+
+            </LinearLayout>
+            <Gallery
+                android:id="@+id/galley"
+                android:spacing="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#999999">
+
+            </Gallery>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@mipmap/exam_pre32x32"
+                    android:background="@null"
+                    android:text="上一题"
+                    android:onClick="preExam"
+                    android:layout_alignParentLeft="true"
+                    />
+                <Button
+                    android:id="@+id/btn_next"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableRight="@mipmap/exam_next32x32"
+                    android:background="@null"
+                    android:text="下一题"
+                    android:onClick="nextExam"
+                    android:layout_alignParentRight="true"
+                    />
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/btn_next"
+                    android:drawableRight="@mipmap/exam_commit32x32"
+                    android:background="@null"
+                    android:text="交卷"
+                    android:onClick="commit"
+                    android:gravity="center"/>
+
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+
 </LinearLayout>
