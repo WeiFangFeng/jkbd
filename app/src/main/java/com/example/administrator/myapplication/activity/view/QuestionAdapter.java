@@ -17,14 +17,14 @@ import java.util.List;
  * Created by weifangfeng on 2017/7/4.
  */
 
-public class QuestionAdapter  extends BaseAdapter{
+public class QuestionAdapter extends BaseAdapter{
 
     Context mContext;
     List<Exam> examList;
 
     public QuestionAdapter(Context mContext) {
         this.mContext = mContext;
-        List<Exam> examList= ExamApplication.getInstance().getMExamList();
+         examList= ExamApplication.getInstance().getMExamList();
 
     }
 
@@ -46,10 +46,11 @@ public class QuestionAdapter  extends BaseAdapter{
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-       View view=View .inflate(mContext, R.layout.item_question,null);
-      TextView tvNum=(TextView) view.findViewById(R.id.tv_Num);
+        View view = View .inflate(mContext, R.layout.item_question,null);
+        TextView tvNum =(TextView) view.findViewById(R.id.tv_Num);
         ImageView ivQuestion=(ImageView)view.findViewById(R.id.iv_question);
-       tvNum.setText("第"+(position+1)+"题");
+        tvNum.setText("第"+(position+1)+"题");
+
 
         return view ;
     }

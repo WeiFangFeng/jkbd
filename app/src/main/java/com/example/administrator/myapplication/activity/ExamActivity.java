@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.Gallery;
@@ -175,7 +176,8 @@ public class ExamActivity extends AppCompatActivity {
                 ExamInfo examInfo=ExamApplication.getInstance().getMExamInfo();
                 if(examInfo!=null) {
                     showData(examInfo);
-                    initTime(examInfo);
+                    //倒计时方法
+                   initTime(examInfo);
                 }
                 initGallery();
                 showExam(biz.getInExam());
@@ -194,15 +196,25 @@ public class ExamActivity extends AppCompatActivity {
         }
 
     private void initGallery() {
-        mAdapter=new QuestionAdapter((this));
-        mGallery.setAdapter(mAdapter);
 
+
+        mAdapter=new QuestionAdapter(this);
+        mGallery.setAdapter(mAdapter);
+        //Log.e("gallery","gallery item position="+position);
+       mGallery.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+           @Override
+           public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+               Log.e("gallery","gallery item position="+position);
+               saveUserAnswer();;
+               showExam(biz.getInExam(position));
+           }
+       });
 
     }
 
     private void initTime(ExamInfo examInfo) {
-    //int sumTime =examInfo.getLimitTime()*60*1000;
-        int sumTime =60*1000;
+    int sumTime =examInfo.getLimitTime()*60*1000;
+        //int sumTime =60*1000;
       Log.e("time","sumTime="+sumTime);
         final  long overTime =sumTime+System.currentTimeMillis();
         final Timer timer =new Timer();
@@ -213,7 +225,7 @@ public class ExamActivity extends AppCompatActivity {
                 Log.e("time","l="+l);
                 final  long min=l/1000/60;
                 final  long sec=l/1000%60;
-                Log.e("Time","min="+min+"sec="+sec);
+            // Log.e("Time","min="+min+"sec="+sec);
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -286,7 +298,7 @@ public class ExamActivity extends AppCompatActivity {
 
       for (int i=0;i<cbs.length;i++){
         if(cbs[i].isChecked()){
-            biz.getInExam().setAnswer(String.valueOf(i+1));
+            biz.getInExam().setUserAnswer(String.valueOf(i+1));
             return;
         }
       }
@@ -317,6 +329,7 @@ public class ExamActivity extends AppCompatActivity {
     public void nextExam(View view) {
         saveUserAnswer();
         showExam(biz.nextQuestion());
+
     }
 
     public void commit(View view) {

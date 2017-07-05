@@ -41,6 +41,16 @@ public class ExamBiz  implements IExamBiz {
             return null;
         }
     }
+    @Override
+    public Exam getInExam(int index ) {
+        examList = ExamApplication.getInstance().getMExamList();
+        examIndex=index;
+        if (examList!= null) {
+            return examList.get(examIndex);
+        } else {
+            return null;
+        }
+    }
 
     @Override
     public Exam nextQuestion() {
@@ -69,7 +79,7 @@ public class ExamBiz  implements IExamBiz {
     public int commitExam() {
         int s=0;
         for (Exam exam : examList) {
-            String userAnswer=exam.getAnswer();
+            String userAnswer=exam.getUserAnswer();
             if(userAnswer!=null && !userAnswer.equals("")){
                 if(exam.getAnswer().equals(userAnswer)){
                     s++;

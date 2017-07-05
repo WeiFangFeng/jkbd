@@ -7,6 +7,7 @@
     android:background="@mipmap/main"
     >
     <LinearLayout
+        android:visibility="gone"
         android:id="@+id/layout_loading"
         android:orientation="vertical"
         android:gravity="center"
@@ -206,7 +207,8 @@
         android:id="@+id/galley"
         android:spacing="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="#999999">
 
     </Gallery>
     <RelativeLayout

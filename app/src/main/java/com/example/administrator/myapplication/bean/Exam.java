@@ -102,7 +102,13 @@ public class Exam {
         this.url = url;
     }
 
-    public void setUserAnswer(String userAnswer) {
-        this.userAnswer = userAnswer;
+    public String getUserAnswer() {
+        return userAnswer;
     }
+
+    public void setUserAnswer(String userAnswer) {
+        this.userAnswer= userAnswer;
+    }
+
+
 }
