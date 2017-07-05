@@ -8,6 +8,7 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
     android:src="@mipmap/ques24x24"
+
     />
     <TextView
         android:id="@+id/tv_Num"

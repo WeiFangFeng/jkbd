@@ -302,6 +302,9 @@ public class ExamActivity extends AppCompatActivity {
             return;
         }
       }
+      Log.e("save","saveUserAvswer,biz.getExam()"+biz.getInExam());
+      biz.getInExam().setUserAnswer("");
+      mAdapter.notifyDataSetChanged();
   }
     private void showData(ExamInfo examInfo) {
 
